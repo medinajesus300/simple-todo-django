@@ -1,0 +1,50 @@
+{% block content %}
+
+
+{% if request.user.is_authenticated %}
+<div class="" style="">
+    <p>Hello, {{request.user}}</p>
+    <a class="" href="{% url 'logout' %}">Logout</a>   
+</div>
+{% else %}
+<a href="{% url 'login' %}">Login</a>
+<a href="">Register</a>
+{% endif %}
+
+<div style="" class="" >
+<h1 class="">To Do List</h1>
+<!--Create a task-->
+<a class="" href="{% url 'task-create' %}">Add a new task</a>
+
+<!--Serach for a task-->
+<form action="" method="GET" class="">
+    <input type="text" name="search" value="{{search_value}}">
+    <input type="submit" value="Search">
+</form>
+
+</div>
+<!--Display all tasks-->
+<div class="" style="">
+<table>
+    <tr>
+        <th>Task(s):</th>
+    </tr>
+
+    {% for task in tasks %}
+    <tr>
+        <td>{{task.title}}</td>
+        {% comment %} <td><a href="{% url 'task' task.id %}">View</a></td> {% endcomment %}
+        <td><a href="{% url 'task-update' task.id %}">Edit</a></td>
+        <td><a href="{% url 'task-delete' task.id %}">Delete</a></td>
+
+    </tr>
+    {% empty %}
+    <tr>
+        <td>No tasks yet!</td>
+    </tr>
+    {% endfor %}
+
+</table>
+</div>
+    
+{% endblock %}
